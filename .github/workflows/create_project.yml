@@ -26,8 +26,8 @@ jobs:
     steps:
       - name: Create Base Directory
         run: |
-          location="{{ github.event.inputs.location }}"
-          location2=$(echo "{{ github.event.inputs.location }}" | tr " " "_")
+          location="${{ github.event.inputs.location }}"
+          location2=$(echo "${{ github.event.inputs.location }}" | tr " " "_")
           location="${location/ /_}"
           echo "$location"
           echo "$location2"
