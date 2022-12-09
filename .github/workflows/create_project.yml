@@ -20,8 +20,8 @@ on:
         default: James_Hero10,Jared_Hero10
 
 jobs:
-  generate-artifacts:
-    name: Generate Artifacts Structure
+  create_dir:
+    name: Create Directory Structure
     runs-on: ubuntu-latest
     steps:
       - name: Create Directory
