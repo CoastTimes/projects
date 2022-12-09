@@ -29,7 +29,7 @@ jobs:
           location="${{ github.event.inputs.location }}"
           location="${location// /_}"
           footage_labels="${{ github.event.inputs.footage-labels }}"
-          project_dir="current_projects/${{ github.event.inputs.date }}_${location}"
+          project_dir="${{ github.event.inputs.date }}_${location}"
           echo "LOCATION=$location" >> $GITHUB_ENV
           echo "PROJECT_DIR=$project_dir" >> $GITHUB_ENV
           mkdir -p "${project_dir}"
@@ -55,6 +55,6 @@ jobs:
         with:
           credentials: ${{ secrets.GDRIVE_KEY }}
           filename: "${{ env.PROJECT_DIR }}/**/**/.action_created"
-          folderId: ${{ secrets.GDRIVE_BASE_FOLDER }}
+          folderId: ${{ secrets.GDRIVE_CURRENT_PROJECTS }}
           overwrite: false
           mirrorDirectoryStructure: true
