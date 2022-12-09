@@ -27,8 +27,19 @@ jobs:
       - name: Create Base Directory
         run: |
           location="${{ github.event.inputs.location }}"
-          location2=$(echo "${{ github.event.inputs.location }}" | tr " " "_")
-          location="${location/ /_}"
-          echo "$location"
-          echo "$location2"
-          mkdir "${{ github.event.inputs.date }}_${location}"
+          location="${location// /_}"
+          footage_labels="${{ github.event.inputs.footage-labels }}"
+          project_dir="${{ github.event.inputs.date }}_${location}"
+          echo "LOCATION=$location" >> $GITHUB_ENV
+          echo "PROJECT_DIR=$project_dir" >> $GITHUB_ENV
+          mkdir "${project_dir}"
+          for directory in "audio" "footage" "music" "thumbnails"; do
+            mkdir "${project_dir}/${directory}"
+          done
+          for label in ${footage_labels//,/ }; do
+            mkdir "${project_dir}/footage/${label}"
+          done
+          ls
+          ls "${project_dir}"
+          ls "${project_dir}/footage"
+          
