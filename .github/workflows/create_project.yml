@@ -5,11 +5,11 @@ on:
     inputs:
       location:
         description: Location of project (ex. Coast Gravity Park)
-        default: Coast Gravity Park
+        default: "Coast Gravity Park"
         required: true
       date:
         description: Date of project (ex. 2022-12-25)
-        default: 2022-12-25
+        default: "2022-12-25"
         required: true
       push-to-google:
         type: boolean
@@ -17,7 +17,7 @@ on:
         default: true
       footage-labels:
         description: Comma seperated description of footage (ex. James_Hero10,Jared_Hero10)
-        default: James_Hero10,Jared_Hero10
+        default: "James_Hero10,Jared_Hero10"
 
 jobs:
   generate-artifacts:
@@ -43,7 +43,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@v0.3
         with:
           credentials: ${{ secrets.GDRIVE_KEY }}
-          filename: ${{ env.PROJECT_DIR }}/*
+          filename: "${{ env.PROJECT_DIR }}/**/*"
           folderId: ${{ secrets.GDRIVE_BASE_FOLDER }}
           overwrite: false
           mirrorDirectoryStructure: "true"
