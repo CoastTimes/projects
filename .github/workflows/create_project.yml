@@ -20,11 +20,11 @@ on:
         default: James_Hero10,Jared_Hero10
 
 jobs:
-  create_dir:
-    name: Create Directory Structure
+  generate-artifacts:
+    name: Generate Artifacts Structure
     runs-on: ubuntu-latest
     steps:
-      - name: Create Base Directory
+      - name: Create Directory
         run: |
           location="${{ github.event.inputs.location }}"
           location="${location// /_}"
@@ -39,7 +39,12 @@ jobs:
           for label in ${footage_labels//,/ }; do
             mkdir "${project_dir}/footage/${label}"
           done
-          ls
-          ls "${project_dir}"
-          ls "${project_dir}/footage"
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action:v0.3
+          with:
+            credentials: ${{ secrets.GDRIVE_KEY }}
+            filename: ${{ env.PROJECT_DIR }}/*
+            folderId: ${{ secrets.GDRIVE_BASE_FOLDER }}
+            overwrite: false
+            mirrorDirectoryStructure: "true"
           
