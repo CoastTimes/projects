@@ -23,6 +23,7 @@ jobs:
     steps:
       - name: Create Base Directory
         run: |
-          location=${{ github.event.inputs.location }/ /_}
+          location=${{ github.event.inputs.location }}
+          location=${location/ /_}
           echo $location
           mkdir ${{ github.event.inputs.date }}_${{ github.event.inputs.date }}
