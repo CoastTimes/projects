@@ -1,0 +1,28 @@
+name: Create Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      location:
+        description: Location of project (ex. Coast Gravity Park)
+        required: true
+      date:
+        description: Date of project (ex. 2022-12-25)
+        required: true
+      push-to-google:
+        type: boolean
+        description: Push the data to Google Drive
+        default: true
+      footage-labels:
+        description: Comma seperated description of footage (ex. James_Hero10,Jared_Hero10)
+
+jobs:
+  create_dir:
+    name: Create Directory Structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Base Directory
+        run: |
+          location=${{ github.event.inputs.location }/ /_}
+          echo $location
+          mkdir ${{ github.event.inputs.date }}_${{ github.event.inputs.date }}
