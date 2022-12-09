@@ -33,11 +33,14 @@ jobs:
           echo "LOCATION=$location" >> $GITHUB_ENV
           echo "PROJECT_DIR=$project_dir" >> $GITHUB_ENV
           mkdir "${project_dir}"
+          date > "${project_dir}/.action_created"
           for directory in "audio" "footage" "music" "thumbnails"; do
             mkdir "${project_dir}/${directory}"
+            date > "${project_dir}/${directory}/.action_created"
           done
           for label in ${footage_labels//,/ }; do
             mkdir "${project_dir}/footage/${label}"
+            date > "${project_dir}/footage/${label}/.action_created"
           done
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@v0.3
@@ -46,4 +49,5 @@ jobs:
           filename: "${{ env.PROJECT_DIR }}/**/*"
           folderId: ${{ secrets.GDRIVE_BASE_FOLDER }}
           overwrite: false
-          mirrorDirectoryStructure: "true"
+          mirrorDirectoryStructure: true
+          useCompleteSourceFilenameAsName: true
