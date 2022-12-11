@@ -42,19 +42,19 @@ jobs:
             mkdir "${project_dir}/footage/${label}"
             date > "${project_dir}/footage/${label}/.action_created"
           done
-      - name: Upload to gdrive
-        uses: adityak74/google-drive-upload-git-action@v0.3
-        with:
-          credentials: ${{ secrets.GDRIVE_KEY }}
-          filename: "${{ env.PROJECT_DIR }}/**/.action_created"
-          folderId: ${{ secrets.GDRIVE_BASE_FOLDER }}
-          overwrite: false
-          mirrorDirectoryStructure: true
       - name: Upload subdirs to gdrive
         uses: adityak74/google-drive-upload-git-action@v0.3
         with:
           credentials: ${{ secrets.GDRIVE_KEY }}
           filename: "${{ env.PROJECT_DIR }}/**/**/.action_created"
           folderId: ${{ secrets.GDRIVE_CURRENT_PROJECTS }}
+          overwrite: false
+          mirrorDirectoryStructure: true
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@v0.3
+        with:
+          credentials: ${{ secrets.GDRIVE_KEY }}
+          filename: "${{ env.PROJECT_DIR }}/**/.action_created"
+          folderId: ${{ secrets.GDRIVE_BASE_FOLDER }}
           overwrite: false
           mirrorDirectoryStructure: true
